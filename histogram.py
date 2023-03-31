@@ -38,7 +38,8 @@ def HE(img,hist_plot_show=False):
     return newimg
 
 #%%
-newimg= HE(img)
+newimg= HE(img,True)
+cv2.imwrite("/mnt/c/Users/ryan7/Documents/GitHub/computer_vision_project1/HE_Kneyw.png",newimg)
 plt.imshow(newimg, cmap="gray")
 
 
@@ -52,8 +53,14 @@ def HE_color(img):
 newimg=HE_color(img)
 #newimg= np.array(newimg)
 #newimg=np.transpose(newimg, (1, 2, 0))
+cv2.imwrite("/mnt/c/Users/ryan7/Documents/GitHub/computer_vision_project1/HE_sky_and_mount.png",newimg)
 newimg = cv2.cvtColor(newimg, cv2.COLOR_BGR2RGB)
+
 plt.imshow(newimg)
+
+
+
+
 #%%
 img = cv2.imread("/mnt/c/Users/ryan7/Documents/GitHub/computer_vision_project1/LLFlow-main/images/sky_and_mount.jpg",cv2.IMREAD_COLOR)
 img= cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -110,7 +117,7 @@ def clahe_grayscale(img,ClipLimits=8,tile=20,enableclip=True): # tile should be 
                 newimg[subimg==o]=newCounting[o]
             newim[i*tile:i*tile+tile,j*tile:j*tile+tile]=newimg
 
-
+    #cv2.imwrite("/mnt/c/Users/ryan7/Documents/GitHub/computer_vision_project1/clahe_Kneyw_no_interpolate.png",newim[0:img.shape[0],0:img.shape[1]])
 
 #plt.imshow(newim[0:img.shape[0],0:img.shape[1]], cmap="gray")
 
@@ -180,7 +187,14 @@ def clahe_grayscale(img,ClipLimits=8,tile=20,enableclip=True): # tile should be 
     return afterinterim[0:img.shape[0],0:img.shape[1]]
 
 afterinterim= clahe_grayscale(img)
+#%%
+cv2.imwrite("/mnt/c/Users/ryan7/Documents/GitHub/computer_vision_project1/clahe_Kneyw.png",afterinterim)
 plt.imshow(afterinterim, cmap="gray")
+
+afterinterim= clahe_grayscale(img,enableclip=False)
+cv2.imwrite("/mnt/c/Users/ryan7/Documents/GitHub/computer_vision_project1/AHE_Kneyw.png",afterinterim)
+plt.imshow(afterinterim, cmap="gray")
+
 
 #%% clahe_color
 img = cv2.imread("/mnt/c/Users/ryan7/Documents/GitHub/computer_vision_project1/LLFlow-main/images/test_images/sky_and_mount.jpg",cv2.IMREAD_COLOR)
@@ -192,7 +206,9 @@ def CLAHE_color(img):
 newimg=CLAHE_color(img)
 #newimg= np.array(newimg)
 #newimg=np.transpose(newimg, (1, 2, 0))
+cv2.imwrite("/mnt/c/Users/ryan7/Documents/GitHub/computer_vision_project1/clahe_sky_and_mount.png",newimg)
 newimg = cv2.cvtColor(newimg, cv2.COLOR_BGR2RGB)
+
 plt.imshow(newimg)
 
 

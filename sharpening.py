@@ -7,7 +7,7 @@ img = cv2.imread("/mnt/c/Users/ryan7/Documents/GitHub/computer_vision_project1/m
 plt.imshow(img, cmap="gray")
 # %% laplacian sharpening gray picture
 
-def laplacian_sharpening_gray(img,ShF=100): #shf is sharpening factor
+def laplacian_sharpening_gray(img,ShF=255): #shf is sharpening factor
     #lap=np.array([[0, -1, 0], [-1, 4, -1], [0, -1, 0]])
     
     lap=np.array([[-1, -1 ,-1],[ -1, 8 ,-1] ,[-1 ,-1 ,-1]])
@@ -23,16 +23,20 @@ def laplacian_sharpening_gray(img,ShF=100): #shf is sharpening factor
     #lapimage=((lapimage-np.min(lapimage))*(1/(np.max(lapimage)-np.min(lapimage)))*255).astype('uint8')
     
     lapimage= lapimage*ShF/np.amax(lapimage)
+    #cv2.imwrite("/mnt/c/Users/ryan7/Documents/GitHub/computer_vision_project1/lap_moon_filter.png",lapimage)
     plt.imshow(lapimage, cmap="gray")
-    newimg=img+lapimage                
+    newimg=lapimage#+img                
     newimg=np.clip(newimg,0,255).astype(np.uint8)
     #((newimg-np.min(newimg))*(1/(np.max(newimg)-np.min(newimg)))*255).astype('uint8')
     #
     
     return newimg
-
+#%%
 #lrlapimgaes=(lapimage-np.min(lapimage))/(np.max(lapimage.max()) - np.min(lapimage.min))
 newimg=laplacian_sharpening_gray(img,255)
+cv2.imwrite("/mnt/c/Users/ryan7/Documents/GitHub/computer_vision_project1/lap_moon.png",newimg)
+
+
 #plt.imshow(lapimage, cmap="gray") 
 plt.imshow(newimg, cmap="gray")   
 
@@ -47,8 +51,14 @@ def laplacian_sharpening_color(img):
         ,laplacian_sharpening_gray(img[:,:,2])]
 newimg=laplacian_sharpening_color(img)
 newimg= np.array(newimg)
+
 newimg=np.transpose(newimg, (1, 2, 0))
-plt.imshow(newimg)
+rgbimg = cv2.cvtColor(newimg, cv2.COLOR_RGB2BGR)
+cv2.imwrite("/mnt/c/Users/ryan7/Documents/GitHub/computer_vision_project1/lap_filter_lenna.png",rgbimg)
+plt.imshow(rgbimg)
+
+
+
 # %% sobel with guassian snoothing sharpening
 
 
